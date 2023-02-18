@@ -1,5 +1,254 @@
 package eu.tutorials.kotlinbasics
 
+import kotlin.math.floor
+
+fun main() {
+    val stringList : List<String> = listOf("Denis", "Frank", "Michael", "Garry")
+    val mixedTypeList : List<Any> = listOf("Denis", "31", 5, "BDay", 70.5, "weighs", "Kg")
+
+    for(value in mixedTypeList) {
+        when(value) {
+            is Int -> println("Integer: '$value'")
+            is Double -> println("Double: '$value' with Floor value ${floor(value)}")
+            is String -> println("String: '$value' of length ${value.length} ")
+            else -> println("Unknown Type")
+        }
+    }
+
+    // Smart Cast
+    val obj1: Any = "I have a dream"
+    if(obj1 !is String) {
+        println("Not a String")
+    } else {
+        println("Found a String of length ${obj1.length}")
+    }
+
+    // explicit (unsafe) casting using the "as" keyword - can go wrong
+    val str1: String = obj1 as String
+    println(str1.length)
+
+    //val obj2: Any = 1337
+    //val str2: String = obj2 as String
+    //println(str2)
+
+    // explicit (safe) casting using the as? keyword
+    val obj3: Any = 1337
+    val str3: String? = obj3 as? String // works
+    println(str3) // prints null
+}
+
+/* ***
+abstract class Mammal(private val name: String, private val origin: String,
+    private val weight: Double) {
+
+    // abstract property (must be overwritten by subclasses
+    abstract var maxSpeed: Double
+
+    // abstract methods (must be implemented by subclasses)
+    abstract fun run()
+    abstract fun breath()
+
+    // concrete (non abstract) method
+    fun displayDetails() {
+        println("Name: $name, Origin: $origin, Weight: $weight " +
+                "Max speed: $maxSpeed")
+    }
+}
+
+class Human(name: String, origin: String, weight: Double,
+            override var maxSpeed: Double): Mammal(name, origin, weight) {
+
+    override fun run() {
+        println("Runs on two legs")
+    }
+
+    override fun breath() {
+        println("Breathe through mouth or nose")
+    }
+}
+
+class Elephant(name: String, origin: String, weight: Double,
+            override var maxSpeed: Double): Mammal(name, origin, weight) {
+
+    override fun run() {
+        println("Runs on four legs")
+    }
+
+    override fun breath() {
+        println("Breathe through the trunk")
+    }
+}
+
+fun main() {
+    val human = Human("Denis", "Russia", 70.0, 28.0)
+    val elephant = Elephant("Rosy", "India", 5400.0, 25.0)
+
+    human.run()
+    elephant.run()
+
+    human.breath()
+    elephant.breath()
+}
+*/
+
+/* ******
+interface Drivable {
+    val maxSpeed: Double
+    fun drive(): String
+    fun brake() {
+        println("The drivable is braking")
+    }
+}
+
+open class Car(override val maxSpeed: Double, val name: String,
+               val brand: String): Drivable {
+    open var range: Double = 0.0
+
+    fun extendRange(amount: Double) {
+        if(amount > 0) {
+            range += amount
+        }
+    }
+
+    //override fun drive(): String = "driving the interface drive"
+    override fun drive(): String {
+        return "driving the interface drive"
+    }
+
+    open fun drive(distance: Double) {
+        println("Drove for $distance KM")
+    }
+}
+
+class ElectricCar(maxSpeed: Double, name: String, brand: String, batteryLife: Double)
+    : Car(maxSpeed, name, brand) {
+
+    var chargerType = "Type1"
+    override var range = batteryLife * 6
+
+    override fun drive(distance: Double) {
+        println("Drove for $distance KM on electricity")
+    }
+
+    override fun drive(): String {
+        return "Drove for $range KM on electricity"
+    }
+
+    override fun brake() {
+        super.brake()
+        println("brake inside of electric car")
+    }
+}
+
+fun main() {
+    var audiA3 = Car(200.0,"A3", "Audi")
+    var teslaS = ElectricCar(240.0, "S-Model", "Tesla", 85.0)
+    teslaS.chargerType = "Type2"
+    teslaS.extendRange(200.0)
+
+    println(teslaS.drive())
+    teslaS.brake()
+    audiA3.brake()
+
+    audiA3.drive(200.0)
+    teslaS.drive(200.0)
+}
+*/
+/* ******
+data class User(val id: Long, var name: String)
+
+fun main() {
+    val user1 = User(1, "Denis")
+    val user2 = User(1, "Michael")
+
+    println(user1 == user2)
+
+    println("User Details: $user1")
+
+    val updatedUser = user1.copy(name="Dennis Panjuta")
+    println(user1)
+    println(updatedUser)
+
+    println(updatedUser.component1()) // print 1
+    println(updatedUser.component2()) // prints Dennis Panjuta
+
+    val (id,name) = updatedUser
+    println("id=$id, name=$name")
+}
+*/
+
+/* **********************
+fun main() {
+    var myCar = Car()
+    println("brand is : ${myCar.myBrand}")
+    myCar.maxSpeed = 240
+    println("Maxspeed is : ${myCar.maxSpeed}")
+}
+
+class Car() {
+    lateinit var owner : String
+
+    val myBrand: String = "BMW"
+        // custom getter
+    get() {
+        return field.toLowerCase()
+    }
+
+    var maxSpeed: Int = 250
+        //get() = field
+        set(value) {
+            field = if(value > 0) value else throw IllegalArgumentException("Maxspeed has to be positive")
+        }
+
+    var myModel : String = "M5"
+        private set
+
+    init {
+        this.owner = "Frank"
+    }
+}
+*/
+
+
+/* **********
+class Person(firstName: String = "John", lastName: String = "Doe") {
+    // Member Variables - properties
+    var age : Int? = null
+    var hobby : String = "watch netflix"
+    var firstName : String? = null
+
+    init {
+        this.firstName = firstName
+        println("Initialized a new Person object with " +
+                "firstname = $firstName and lastName = $lastName")
+    }
+
+    // member secondary constructor
+    constructor(firstName: String, lastName: String, age: Int)
+        : this(firstName, lastName) {
+            this.age = age
+        println("Initialized a new Person object with " +
+                "firstname = $firstName, lastName = $lastName and age $age")
+        }
+
+    // member functions - methods
+    fun stateHobby() {
+        println("$firstName\'s hobby is $hobby")
+    }
+}
+
+fun main() {
+    var aleksi: Person = Person("Aleksi", "Khlebnikov", 31)
+    var john: Person = Person()
+    var johnPeterson = Person(lastName = "Peterson")
+
+    aleksi.hobby = "to skateboard"
+    aleksi.stateHobby()
+}
+*/
+
+
+/* **************
 fun main(){
     //var name: String = "Denis"
     // name = null -> compilation error
@@ -142,3 +391,4 @@ fun run() {
     println("\nfor done")
 
 }
+*/
