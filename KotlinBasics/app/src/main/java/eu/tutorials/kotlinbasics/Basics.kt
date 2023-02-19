@@ -1,5 +1,101 @@
 package eu.tutorials.kotlinbasics
 
+
+
+/* Safe cast and unsafe cast operator
+fun main() {
+    val location: Any = "Kotlin"
+    val safeString: String? = location as? String
+    val safeInt: Int? = location as? Int
+    println(safeString)
+    println(safeInt)
+}
+ */
+
+/* Lambda
+fun main() {
+    // lambda
+    val sum: (Int, Int) -> Int = { a:Int, b: Int -> a + b }
+    //val sum = { a:Int, b:Int -> a+b }
+    println(sum(34,5))
+}
+*/
+
+/* *****
+fun main() {
+    val fruits = setOf("Orange", "Apple", "Grape", "Apple")
+    println(fruits.toSortedSet())
+
+    val newFruits = fruits.toMutableList()
+    newFruits.add("Water Melon")
+    newFruits.add("Pear")
+    //println(newFruits.elementAt(4))
+
+    val daysOfTheWeek = mapOf(1 to "Monday", 2 to "Tuesday", 3 to "Wednesday")
+    //println(daysOfTheWeek[2])
+    for(key in daysOfTheWeek.keys) {
+        print(" $key is to ${daysOfTheWeek[key]}")
+    }
+
+    val fruitsMap = mapOf(1 to Fruit("Grape", 2.5), 2 to Fruit("Apple", 1.0))
+    val newDaysOfWeek = daysOfTheWeek.toMutableMap()
+    newDaysOfWeek[4] = "Thursday"
+    newDaysOfWeek[5] = "Friday"
+
+    println(newDaysOfWeek.toSortedMap())
+}
+
+data class Fruit(val name: String, val price: Double)
+*/
+/* *******
+fun main() {
+    val months = listOf("January", "February", "March")
+    val anyTypes = listOf(1,2,3,true, false, "String")
+    //println(anyTypes.size)
+    //println(months[0])
+
+    val additionMonths = months.toMutableList()
+    val newMonths = arrayOf("April", "May", "June")
+    additionMonths.addAll(newMonths)
+    additionMonths.add("July")
+    println(additionMonths)
+
+    val days = mutableListOf<String>("Mon", "Tue", "Wed")
+    days.add("Thu")
+    days[2] = "Sunday"
+    //days.removeAt(0)
+    val removeList = mutableListOf<String>("Mon", "Wed")
+    days.removeAll(removeList)
+    println(days)
+}
+*/
+
+/* *******
+fun main() {
+    //val numbers: IntArray = intArrayOf(1,2,3,4,5,6)
+    //val numbers = intArrayOf(1,2,3,4,5,6)
+    val numbers = arrayOf(1,2,3,4,5,6)
+
+    //print(numbers.contentToString())
+    for(i in 5 downTo 0) {
+        numbers[i] = i
+    }
+    println("\nFinal values ${numbers.contentToString()}")
+
+    val fruits = arrayOf(Fruit("Apple", 2.5), Fruit("Grape", 3.5))
+    //println(fruits.contentToString())
+    for(fruit in fruits) {
+        println("${fruit.name}")
+    }
+
+    for(index in fruits.indices) {
+        println("${fruits[index].name} is in index $index")
+    }
+}
+
+data class Fruit(val name: String, val price: Double)
+*/
+/* ****
 import kotlin.math.floor
 
 fun main() {
@@ -36,6 +132,7 @@ fun main() {
     val str3: String? = obj3 as? String // works
     println(str3) // prints null
 }
+*/
 
 /* ***
 abstract class Mammal(private val name: String, private val origin: String,
